@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,7 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
         h1, h2 { color: #003366; }
-        .eula { border: 1px solid #ccc; padding: 20px; background: #f9f9f9; max-height: 400px; overflow-y: scroll; margin-bottom: 20px; }
+        .eula, .dati-bene { border: 1px solid #ccc; padding: 20px; background: #f9f9f9; margin-bottom: 20px; }
         .form-section { margin-top: 30px; }
         label { display: block; margin-bottom: 10px; }
         button { padding: 10px 20px; background: #003366; color: white; border: none; cursor: pointer; }
@@ -16,6 +17,15 @@
 <body>
     <h1>Accettazione Bene Assegnato</h1>
     <p>Gentile utente, ti è stato assegnato un bene aziendale. Prima di riceverlo, leggi e accetta il seguente contratto:</p>
+
+    <div class="dati-bene">
+        <h2>Dati del Bene Assegnato</h2>
+        <p><strong>Utente:</strong> <span id="utente_display"></span></p>
+        <p><strong>Tipo:</strong> <span id="tipo_display"></span></p>
+        <p><strong>Marca:</strong> <span id="marca_display"></span></p>
+        <p><strong>Modello:</strong> <span id="modello_display"></span></p>
+        <p><strong>Seriale:</strong> <span id="seriale_display"></span></p>
+    </div>
 
     <div class="eula">
         <h2>CONTRATTO DI LICENZA D'USO FINALE (EULA)</h2>
@@ -66,10 +76,39 @@
 
     <div class="form-section">
         <form action="https://formspree.io/f/tuoformid" method="POST">
-            <input type="hidden" name="utente" id="utente">
-            <input type="hidden" name="bene" id="bene">
+            <input type="hidden" name="Utente" id="utente" />
+            <input type="hidden" name="Tipo" id="tipo" />
+            <input type="hidden" name="Marca" id="marca" />
+            <input type="hidden" name="Modello" id="modello" />
+            <input type="hidden" name="Seriale" id="seriale" />
             <label>
                 <input type="checkbox" name="accettazione" required>
                 Dichiaro di aver letto e accettato le condizioni dell’EULA
             </label>
-            <
+            <br><br>
+            <button type="submit">Accetta Bene</button>
+        </form>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const utente = params.get('utente') || '';
+        const tipo = params.get('tipo') || '';
+        const marca = params.get('marca') || '';
+        const modello = params.get('modello') || '';
+        const seriale = params.get('seriale') || '';
+
+        document.getElementById('utente').value = utente;
+        document.getElementById('tipo').value = tipo;
+        document.getElementById('marca').value = marca;
+        document.getElementById('modello').value = modello;
+        document.getElementById('seriale').value = seriale;
+
+        document.getElementById('utente_display').textContent = utente;
+        document.getElementById('tipo_display').textContent = tipo;
+        document.getElementById('marca_display').textContent = marca;
+        document.getElementById('modello_display').textContent = modello;
+        document.getElementById('seriale_display').textContent = seriale;
+    </script>
+</body>
+</html>
